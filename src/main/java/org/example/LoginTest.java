@@ -32,9 +32,22 @@ public class LoginTest {
 
             driver.findElement(By.id("add-to-cart-sauce-labs-backpack")).click();
             Thread.sleep(1000);
+
             driver.findElement(By.id("remove-sauce-labs-backpack")).click();
             Thread.sleep(1000);
-            driver.quit();
+
+            int product = driver.findElements(By.className("inventory_item_name")).size();
+
+            if(product> 0) {
+                System.out.println("Product Added Successfully");
+            } else {
+                System.out.println("Product Not Added");
+            }
+            Thread.sleep(5000);
+
+             driver.findElement(By.id("continue-shopping")).click();
+             Thread.sleep(5000);
+             driver.quit();
 
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
@@ -45,7 +58,7 @@ public class LoginTest {
         try {
             URL url = new URL(urlString);
 
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            HttpURLConnection connection = (HttpURLConnection)url.openConnection();
             connection.setRequestMethod("GET");
             connection.connect();
 
