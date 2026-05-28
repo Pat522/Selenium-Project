@@ -26,28 +26,47 @@ public class LoginTest {
             WebDriver driver = new EdgeDriver();
             driver.get(url);
 
+
+            //Login Valid
             driver.findElement(By.id("user-name")).sendKeys("standard_user");
             driver.findElement(By.id("password")).sendKeys("secret_sauce");
             driver.findElement(By.id("login-button")).click();
 
-            driver.findElement(By.id("add-to-cart-sauce-labs-backpack")).click();
-            Thread.sleep(1000);
-
-            driver.findElement(By.id("remove-sauce-labs-backpack")).click();
-            Thread.sleep(1000);
-
-            int product = driver.findElements(By.className("inventory_item_name")).size();
-
-            if(product> 0) {
-                System.out.println("Product Added Successfully");
+            if (driver.getCurrentUrl().contains("inventory")) {
+                System.out.println("Login Successfully");
             } else {
-                System.out.println("Product Not Added");
+                System.out.println("Login Failed");
             }
-            Thread.sleep(5000);
 
-             driver.findElement(By.id("continue-shopping")).click();
-             Thread.sleep(5000);
-             driver.quit();
+            //Invalid Login
+            driver.findElement(By.id("user-name")).sendKeys("wrong_user");
+            driver.findElement(By.id("password")).sendKeys("wrong_pass");
+            driver.findElement(By.id("login-button")).click();
+
+            if (driver.getPageSource().contains("Username and password do not match")) {
+                System.out.println("Invalid Login Error Shown");
+            }
+
+            //Empty Username
+            driver.findElement(By.id("user-name")).sendKeys("");
+            driver.findElement(By.id("password")).sendKeys("secret_sauce");
+            driver.findElement(By.id("login-button")).click();
+
+            if (driver.getPageSource().contains("Username is required")) {
+                System.out.println("Empty Username");
+            }
+
+            // Locked User
+            driver.findElement(By.id("user-name")).sendKeys("locked_out_user");
+            driver.findElement(By.id("password")).sendKeys("secret_sauce");
+            driver.findElement(By.id("login-button")).click();
+
+            if (driver.getPageSource().contains("locked out")) {
+                System.out.println("Locked User");
+            }
+
+
+            //   driver.quit();
 
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());

@@ -1,18 +1,16 @@
 package org.example;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
-
-import static io.github.bonigarcia.wdm.WebDriverManager.*;
-
 
 public class CartTest {
 
     public static void main(String[] args) throws InterruptedException {
 
             // Setup Edge driver
-            edgedriver().setup();
+           WebDriverManager.edgedriver().setup();
 
             // Launch browser
             WebDriver driver = new EdgeDriver();
@@ -25,7 +23,6 @@ public class CartTest {
             driver.findElement(By.id("add-to-cart-sauce-labs-backpack")).click();
             driver.findElement(By.name("add-to-cart-sauce-labs-bolt-t-shirt")).click();
             Thread.sleep(1000);
-            driver.findElement(By.className("shopping_cart_link")).click();
 
             driver.findElement(By.id("checkout")).click();
 
