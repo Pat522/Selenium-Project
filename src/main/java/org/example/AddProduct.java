@@ -31,7 +31,9 @@ public class AddProduct
 
             int product = driver.findElements(By.className("inventory_item_name")).size();
 
-            if(product> 0) {System.out.println("Product Added Successfully");
+            if(product> 0)
+            {
+                System.out.println("Product Added Successfully");
             } else {
                     System.out.println("Product Not Added");
             }
